@@ -16,3 +16,7 @@ https://localhost:44372/swagger/index.html
 https://localhost:44372/swagger/v1/swagger.json
 
 
+## trabajar tokens
+https://www.c-sharpcorner.com/article/implement-jwt-in-asp-net-core-3-1/
+
+

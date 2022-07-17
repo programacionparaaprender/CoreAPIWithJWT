@@ -5,7 +5,8 @@ https://docs.microsoft.com/es-es/ef/core/querying/raw-sql
 
 dotnet add package System.Data.SqlClient
 
-
+## trabajar tokens
+https://www.c-sharpcorner.com/article/implement-jwt-in-asp-net-core-3-1/
 
 CREATE DATABASE Noticias
 GO
