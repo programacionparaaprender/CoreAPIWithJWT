@@ -71,6 +71,23 @@ namespace FBTarjeta.Services
             }
         }
 
+
+        public Usuario findEmailAndPassword(Usuario usuario)
+        {
+            try
+            {
+                IQueryable<Usuario> query;
+                query = _applicationBDContext.Usuarios.Where(x => x.Email == usuario.Email);
+                query = query.Where(x => x.Password == usuario.Password);
+                Usuario r = query.ToList().FirstOrDefault();
+                return r;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public Usuario porUsuarioID(int UsuarioId)
         {
             try

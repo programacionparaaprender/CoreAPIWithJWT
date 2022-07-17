@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +28,8 @@ namespace FBTarjeta.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(WeatherForecast), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

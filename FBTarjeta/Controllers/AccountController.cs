@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace FBTarjeta.Controllers
@@ -24,14 +25,14 @@ namespace FBTarjeta.Controllers
     {
 
         // Same key configured in startup to validte the JWT tokens
-        private static readonly SigningCredentials SigningCreds = new SigningCredentials(Startup.SecurityKey, SecurityAlgorithms.HmacSha256);
-        private readonly JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
+        private readonly UsuarioService _tarjetaCreditoService;
 
         private IConfiguration _config;
 
-        public AccountController(IConfiguration config)
+        public AccountController(IConfiguration config, UsuarioService noticiaService)
         {
             _config = config;
+            this._tarjetaCreditoService = noticiaService;
         }
 
         [HttpPost]
@@ -93,6 +94,16 @@ namespace FBTarjeta.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Token([FromBody] Usuario creds)
         {
+            var secret = _config.GetSection("JwtConfig").GetSection("secret").Value;
+            var key = Encoding.Default.GetBytes(secret);
+            SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(key);
+            const string JWTAuthScheme = "JWTAuthScheme";
+
+
+            SigningCredentials SigningCreds = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
+            JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
+
+
             if (!ValidateLogin(creds))
             {
                 return Json(new
@@ -101,57 +112,46 @@ namespace FBTarjeta.Controllers
                 });
             }
 
-            var principal = GetPrincipal(creds, Startup.JWTAuthScheme);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Email, creds.Email)
+                }),
+                Expires = DateTime.UtcNow.AddDays(30),
+                //Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
+                SigningCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256Signature)
+            };
 
-            
-            var token = new JwtSecurityToken(
-                "soSignalR",
-                "soSignalR",
-                principal.Claims,
-                expires: DateTime.UtcNow.AddDays(30),
-                signingCredentials: SigningCreds);
-            
-            //var jwt = new JwtService(_config);
-            //string token = jwt.GenerateSecurityToken("fake@email.com");
-            
+            var token = _tokenHandler.CreateToken(tokenDescriptor);
+
             return Json(new
             {
                 //token = token, 
                 token = _tokenHandler.WriteToken(token),
-                name = principal.Identity.Name,
-                email = principal.FindFirstValue(ClaimTypes.Email),
-                role = principal.FindFirstValue(ClaimTypes.Role)
+                name = creds.Email,
+                email = creds.Email,
+                role = "User"
             });
         }
 
         private bool ValidateLogin(Usuario creds)
         {
-            // On a real project, you would use a SignInManager<ApplicationUser> to verify the identity
-            // using:
-            //  _signInManager.PasswordSignInAsync(user, password, lockoutOnFailure: false);
-            // When using JWT you would rather
-            //  _signInManager.UserManager.FindByEmailAsync(email);
-            //  _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: false);
-
-            // For this sample, all logins are successful!
-            return true;
+            Usuario resultado = new Usuario();
+            try
+            {
+                resultado = _tarjetaCreditoService.findEmailAndPassword(creds);
+                if (resultado != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        private ClaimsPrincipal GetPrincipal(Usuario creds, string authScheme)
-        {
-            // On a real project, you would use the SignInManager<ApplicationUser> to locate the user by its email
-            // and to build its ClaimsPrincipal using:
-            //  var user = await _signInManager.UserManager.FindByEmailAsync(email);
-            //  var principal = await _signInManager.CreateUserPrincipalAsync(user)
-
-            // Here we are just creating a Principal for any user, using its email and a hardcoded "User" role
-            var claims = new List<Claim>
-          {
-              new Claim(ClaimTypes.Name, creds.Email),
-              new Claim(ClaimTypes.Email, creds.Email),
-              new Claim(ClaimTypes.Role, "User"),
-          };
-            return new ClaimsPrincipal(new ClaimsIdentity(claims, authScheme));
-        }
     }
 }
