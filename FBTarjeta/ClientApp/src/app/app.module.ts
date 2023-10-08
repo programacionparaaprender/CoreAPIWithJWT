@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { TarjetaCreditoComponent } from './components/components/tarjeta-credito/tarjeta-credito.component';
 
 import { HijoEjemploComponent } from './components/hijo-ejemplo/hijo-ejemplo.component';
-
+import { authTokens } from "./interceptors/auth-token";
 
 @NgModule({
   declarations: [
@@ -35,7 +35,9 @@ import { HijoEjemploComponent } from './components/hijo-ejemplo/hijo-ejemplo.com
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    authTokens,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

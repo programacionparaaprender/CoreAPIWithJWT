@@ -84,11 +84,11 @@ Install-Package Microsoft.EntityFrameworkCore.Tools -Version 3.1.6
 
 PM> add-migration v.1.0.0
 
-update-database
+PM> update-database
 
 
 
-
+https://aka.ms/dotnet-core-applaunch?framework=Microsoft.NETCore.App&framework_version=3.1.32&arch=x64&rid=win10-x64
 
 https://www.connectionstrings.com/sqlconnection/
 

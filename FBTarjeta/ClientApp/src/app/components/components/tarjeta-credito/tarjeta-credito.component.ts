@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { Observable } from 'rxjs';
 import { TarjetaCredito } from '../../../models/tarjetacredito';
+import { Responsetarjeta } from 'src/app/models/responsetarjeta';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { TarjetaCredito } from '../../../models/tarjetacredito';
   styleUrls: ['./tarjeta-credito.component.css']
 })
 export class TarjetaCreditoComponent implements OnInit {
-  listTarjetas: any[] = [];
+  listTarjetas: TarjetaCredito[] = [];
   form: FormGroup;
   accion = "Agregar";
   data = "Datos del hijo";
@@ -33,9 +34,10 @@ export class TarjetaCreditoComponent implements OnInit {
   }
 
   obtenerTarjetas(): void {
-    this._tarjetaService.getListTarjetas().subscribe(data => {
-      console.log(data);
-      this.listTarjetas = data;
+    this._tarjetaService.getListTarjetas().subscribe((res:Responsetarjeta) => {
+      console.log(res);
+      console.log(res.data);
+      this.listTarjetas = res.data;
     }, error => {
       console.log(error);
     });
@@ -82,18 +84,20 @@ export class TarjetaCreditoComponent implements OnInit {
     }
   }
 
-  eliminarTarjeta(id: number): void{
+  eliminarTarjeta(tarjeta: TarjetaCredito): void{
+    let id:number | undefined = tarjeta.id;
     //console.log(index);
     //this.listTarjetas.splice(index, 1);
-    this._tarjetaService.deleteTarjeta(id).subscribe(data => {
-      //console.log(data);
-      this.obtenerTarjetas();
-      this.toastr.success('Tarjeta eliminada con exito!', 'Tarjeta eliminada!');
-    }, error => {
-      //console.log(error);
-      this.toastr.error('Tarjeta no fue eliminada con exito!', error);
-    });
-    
+    if(id != undefined){
+      this._tarjetaService.deleteTarjeta(id).subscribe(data => {
+        //console.log(data);
+        this.obtenerTarjetas();
+        this.toastr.success('Tarjeta eliminada con exito!', 'Tarjeta eliminada!');
+      }, error => {
+        //console.log(error);
+        this.toastr.error('Tarjeta no fue eliminada con exito!', error);
+      });
+    }
   }
 
   editarTarjeta(tarjeta: TarjetaCredito): void {

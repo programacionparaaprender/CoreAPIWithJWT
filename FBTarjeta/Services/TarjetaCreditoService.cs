@@ -42,8 +42,15 @@ namespace FBTarjeta.Services
 
         public List<TarjetaCredito> ObtenerTarjetas()
         {
-
-            var resultado = _applicationBDContext.TarjetaCreditos.ToList();
+            List<TarjetaCredito> resultado = _applicationBDContext.TarjetaCreditos.ToList();
+            try
+            {
+                resultado = _applicationBDContext.TarjetaCreditos.ToList();
+            }
+            catch (Exception ex)
+            {
+                string mensaje = ex.Message;
+            }
             return resultado;
         }
 
