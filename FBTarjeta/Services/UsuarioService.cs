@@ -27,7 +27,7 @@ namespace FBTarjeta.Services
                 resultado = _applicationBDContext.SaveChanges();
                 if (resultado == 1)
                 {
-                    int lastId = _applicationBDContext.Usuarios.Max(x => x.Id);
+                    int lastId = _applicationBDContext.Usuarios.Max(x => x.id);
                     _usuario.id = lastId;
                     return _usuario;
                 }

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Tio } from 'src/app/commons/models/tio';
 import axios from "axios";
 import { Usertoken } from 'src/app/models/usertoken';
+import { Responseusuario } from 'src/app/models/responseusuario';
+import { Responseusertoken } from 'src/app/models/responseusertoken';
 
 
 @Injectable({
@@ -11,6 +13,7 @@ import { Usertoken } from 'src/app/models/usertoken';
 })
 export class TokenService {
   myApiUrl = "/api/account/";
+  myApiUsuario = "/api/usuario/";
   KEYTOKEN = "KEYTOKEN";
   tokenURL = 'http://localhost:8762/token/';
   tioURL = 'http://localhost:8762/api/tio/';
@@ -20,22 +23,38 @@ export class TokenService {
 
   async login(user: Tio) {
     var token:string = "";
+    var response:Responseusertoken | null = null;
     try{
-        var response;
-        response = await this.httpClient.post<Usertoken>(this.myApiUrl + '/token', user).toPromise();
-        if(response){
-            token = response.token;
-            this.setUser(response);
+        
+        ///response = await this.httpClient.post<Usertoken>(this.myApiUrl + 'token', user).toPromise();
+        console.log(JSON.stringify(user));
+        response = await axios.post(this.myApiUrl + 'token', user);
+        if(response != null){
+            token = response.data.token;
+            console.log('response: '+ JSON.stringify(response));
+            this.setUser(response.data);
             window.localStorage.removeItem('token');
             window.localStorage.setItem('token', token);   
+            console.log("token: " + window.localStorage.getItem('token')); 
         }
     }catch(e){
         console.log(e);
     }
+    return response;
   } 
 
   setUser(user: Usertoken):void   {
     localStorage.setItem('login', JSON.stringify(user));
+  }
+
+  getUser():Usertoken | null  {
+    let user: Usertoken;
+    let cadena: string | null = localStorage.getItem('login');
+    if(cadena != null){
+      const user: Usertoken = JSON.parse(cadena);
+      return user;
+    }
+    return null;
   }
 
   obtenerToken(){
@@ -73,7 +92,7 @@ export class TokenService {
   async listaSinToken() {
     var response;
     try{
-        response = await this.httpClient.get<Tio[]>(this.tioURL + 'lista').toPromise();
+        response = await this.httpClient.get<Tio[]>(this.myApiUsuario).toPromise();
         //response = await this.httpClient.get<Tio[]>(this.tioURL + 'lista').toPromise();        
         console.log('response');
         console.log(JSON.stringify(response));
@@ -82,7 +101,6 @@ export class TokenService {
       }
     return response;
   }
-
 
   async lista() {
     var response;
@@ -94,7 +112,7 @@ export class TokenService {
             'Authorization': `Bearer ${token}`
           });
         const requestOptions = { headers: headers };
-        response = await this.httpClient.get<Tio[]>(this.tioURL + 'lista', requestOptions).toPromise();
+        response = await this.httpClient.get<Tio[]>(this.myApiUsuario, requestOptions).toPromise();
         //response = await this.httpClient.get<Tio[]>(this.tioURL + 'lista').toPromise();        
         console.log('response');
         console.log(JSON.stringify(response));

@@ -1,7 +1,8 @@
 export interface Usertoken {
     token: string
-    id: number
+    id?: number
     nombre: string
     email: string
-    role: string
+    role: string,
+    status: number
   }

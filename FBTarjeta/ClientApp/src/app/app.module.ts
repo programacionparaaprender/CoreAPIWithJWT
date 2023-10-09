@@ -15,13 +15,17 @@ import { LoginUsuariosComponent } from 'src/app/views/tio/login-usuarios/login-u
 import { RegistrarUsuariosComponent } from 'src/app/views/tio/registrar-usuarios/registrar-usuarios.component';
 import { TokenizedInterceptorProviders } from "src/app/commons/services/tokenized.interceptor.service";
 import { TarjetaCreditoComponent } from './components/components/tarjeta-credito/tarjeta-credito.component';
+import { ListaUsuariosComponent } from './views/users/listar-usuarios/lista-usuarios.component';
+import { TodoUsuariosComponent } from './views/users/todo-usuarios/todo-usuarios.component';
 @NgModule({
   declarations: [
     TarjetaCreditoComponent,
     AppComponent,
     MenuComponent,
     LoginUsuariosComponent,
-    RegistrarUsuariosComponent
+    RegistrarUsuariosComponent,
+    ListaUsuariosComponent,
+    TodoUsuariosComponent
   ],
   imports: [
     FormsModule,

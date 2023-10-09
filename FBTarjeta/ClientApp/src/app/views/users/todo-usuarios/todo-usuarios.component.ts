@@ -7,11 +7,11 @@ import axios from 'axios'
 //const api = 'https://localhost:44382/' + 'api/actividad';
 const api = "http://www.programandoconrupert.com/ws/servicio-gatos.php";
 @Component({
-  selector: 'app-todo-tasks',
-  templateUrl: './todo-tasks.component.html',
-  styleUrls: ['./todo-tasks.component.css']
+  selector: 'app-todo-usuarios',
+  templateUrl: './todo-usuarios.component.html',
+  styleUrls: ['./todo-usuarios.component.css']
 })
-export class TodoTasksComponent implements OnInit {
+export class TodoUsuariosComponent implements OnInit {
 
   constructor() { }
 

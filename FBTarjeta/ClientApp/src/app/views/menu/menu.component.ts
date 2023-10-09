@@ -22,7 +22,6 @@ import { Usertoken } from 'src/app/models/usertoken';
 export class MenuComponent {
   //@ViewChild(LoginUsuariosComponent) child;
 
-  login: Usertoken | null;
   tio: Tio;
   nombre = '';
   email = 'zddfdfdsfd';
@@ -34,13 +33,11 @@ export class MenuComponent {
     //private store: Store<AppState>,
     private tokenService: TokenService) {
       this.tio = new Tio("", "", "");
-      this.login = null;
       //this.login = this.store.select('login');
     if(localStorage.getItem('login')){
       const json: string  | null = localStorage.getItem('login');
       if(json != null){
         const usuario:Usertoken = JSON.parse(json);
-        this.login = usuario;
         if(usuario.nombre != 'error'){
           this.usuariologeado = true;
         }else{
@@ -56,16 +53,24 @@ export class MenuComponent {
   /* ngAfterViewInit() {
     this.usuariologeado = this.child.usuariologeado
   } */
+
+  get login(){
+    return this.tokenService.getUser();
+  }
+
   logout() {
-    const usuario: Tio = {
+    const usuario: Usertoken = {
       id: 1,
+      token:"",
       nombre: "error",
-      password: "123456",
-      email: "error@gmail.com"
+      email: "error@gmail.com",
+      role:"",
+      status: 404
     }
     this.usuariologeado = false;
     //this.store.dispatch(new TaskActions.InicioUsuario(usuario) )
     this.router.navigate(['/login']);
+    this.tokenService.setUser(usuario);
     this.tokenService.logout();
   }
 

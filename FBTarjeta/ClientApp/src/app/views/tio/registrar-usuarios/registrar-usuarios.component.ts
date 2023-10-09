@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Usertoken } from 'src/app/models/usertoken';
+import { TokenService } from '../../accederwebtoken/token.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class RegistrarUsuariosComponent implements OnInit {
   usuariologeado = false;
   constructor(
     private tioService: TioService, 
+    private tokenService: TokenService, 
     private fb: FormBuilder, 
     private router: Router) {
       this.tio = new Tio("", "", "");
@@ -60,18 +62,18 @@ export class RegistrarUsuariosComponent implements OnInit {
     }
     this.tio = new Tio(this.nombre, this.email, this.password);
     var response = await this.tioService.registrar(this.tio);
-    if(response.status==200){
-      const data = response.data;
-      const usuario = data[0];
-      /*
-      this.store.dispatch(new TaskActions.RegistroUsuario({
+    if(response.status==201){
+      const usuario:Tio = response.data;
+      const usertoken: Usertoken = {
+        token: "",
         id: usuario.id,
-        nombre: usuario.nombre,
+        nombre: "error",
         email: usuario.email,
-        password: usuario.password
-      }) )
-      */
-      this.router.navigate(['/']);
+        role: "",
+        status: 404
+      };
+      this.tokenService.setUser(usertoken);
+      this.router.navigate(['/login']);
     }else{
       console.log('ocurrio un error')
     }

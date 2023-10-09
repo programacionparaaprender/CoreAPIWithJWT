@@ -102,7 +102,8 @@ namespace FBTarjeta.Controllers
                 id = usuario.id,
                 nombre = usuario.nombre,
                 email = usuario.email,
-                role = "User"
+                role = "User",
+                status = 200
             });
         }
 
