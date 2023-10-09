@@ -16,10 +16,10 @@ namespace FBTarjeta.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly UsuarioService _tarjetaCreditoService;
-        public UsuarioController(UsuarioService noticiaService)
+        private readonly UsuarioService _usuarioService;
+        public UsuarioController(UsuarioService usuarioService)
         {
-            this._tarjetaCreditoService = noticiaService;
+            this._usuarioService = usuarioService;
         }
 
 
@@ -32,7 +32,7 @@ namespace FBTarjeta.Controllers
             Usuario resultado = new Usuario();
             try
             {
-                resultado = _tarjetaCreditoService.porUsuarioID(usuarioID);
+                resultado = _usuarioService.porUsuarioID(usuarioID);
                 if (resultado != null)
                 {
                     return Ok(new { message = "El usuario se obtuvo de forma exitosa", data = resultado });
@@ -45,17 +45,17 @@ namespace FBTarjeta.Controllers
             }
         }
 
-        // GET: api/<TarjetaController>
+        // GET: api/<UsuarioController>
         [HttpGet]
         [ProducesResponseType(typeof(TarjetaCredito), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Get()
         {
-            List<TarjetaCredito> resultado = new List<TarjetaCredito>();
+            List<Usuario> resultado = new List<Usuario>();
             try
             {
-                resultado = _tarjetaCreditoService.ObtenerTarjetas();
-                return Ok(new { message = "Las tarjetas se han obtenido de forma exitosa", data = resultado });
+                resultado = _usuarioService.ObtenerUsuarios();
+                return Ok(new { message = "Las usuarios se han obtenido de forma exitosa", data = resultado });
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace FBTarjeta.Controllers
             }
         }
 
-        // GET api/<TarjetaController>/5
+        // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Usuario), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -72,7 +72,7 @@ namespace FBTarjeta.Controllers
             Usuario resultado = new Usuario();
             try
             {
-                resultado = _tarjetaCreditoService.porUsuarioID(id);
+                resultado = _usuarioService.porUsuarioID(id);
                 if (resultado != null)
                 {
                     return Ok(new { message = "El usuario se obtuvo de forma exitosa", data = resultado });
@@ -87,20 +87,20 @@ namespace FBTarjeta.Controllers
             }
         }
 
-        // POST api/<TarjetaController>
+        // POST api/<UsuarioController>
         [HttpPost]
         [ProducesResponseType(typeof(TarjetaCredito), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] TarjetaCredito _tarjeta)
+        public IActionResult Post([FromBody] Usuario _usuario)
         {
-            TarjetaCredito resultado = new TarjetaCredito();
+            Usuario resultado = new Usuario();
             try
             {
-                resultado = _tarjetaCreditoService.agregarTarjeta(_tarjeta);
-                if (resultado.Id != 0)
+                resultado = _usuarioService.agregarUsuario(_usuario);
+                if (resultado.id != 0)
                 {
                     //Created
-                    return Created("url", new { message = "La tarjeta fue creada de forma exitosa", data = resultado });
+                    return Created("url", new { message = "El usuario fue creado de forma exitosa", data = resultado });
                 }
 
             }
@@ -111,28 +111,28 @@ namespace FBTarjeta.Controllers
             return BadRequest(new { message = "No se registro", data = resultado });
         }
 
-        // PUT api/<TarjetaController>/5
+        // PUT api/<UsuarioController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(TarjetaCredito), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Put(int id, [FromBody] TarjetaCredito _tarjeta)
+        public IActionResult Put(int id, [FromBody] Usuario _usuario)
         {
             try
             {
-                if (id != _tarjeta.Id)
+                if (id != _usuario.id)
                 {
                     return NotFound();
                 }
-                var resultado = _tarjetaCreditoService.editarTarjetaCredito(id, _tarjeta);
+                var resultado = _usuarioService.editarUsuario(id, _usuario);
 
                 if (resultado)
-                    return Created("url", new { message = "La tarjeta fue actualizada de forma exitosa", data = _tarjeta });
+                    return Created("url", new { message = "El usuario fue actualizado de forma exitosa", data = _usuario });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return BadRequest(new { message = "No se actualizo", data = _tarjeta });
+            return BadRequest(new { message = "No se actualizo", data = _usuario });
         }
 
         // DELETE api/<TarjetaController>/5
@@ -144,8 +144,8 @@ namespace FBTarjeta.Controllers
             Usuario _tarjeta = new Usuario();
             try
             {
-                _tarjeta = _tarjetaCreditoService.porUsuarioID(id);
-                var resultado = _tarjetaCreditoService.eliminarTarjeta(id);
+                _tarjeta = _usuarioService.porUsuarioID(id);
+                var resultado = _usuarioService.eliminarUsuario(id);
                 if (resultado)
                 {
                     return Created("url", new { message = "El usuario fue eliminado de forma satisfactoria", data = _tarjeta });

@@ -7,8 +7,10 @@ dotnet sln add .\Common\Common.csproj
 dotnet sln add .\Models\Models.csproj
 
 
+ng add @angular/cdk @angular/http
 
-### documentación de swagger
+
+### documentaciï¿½n de swagger
 https://docs.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
 
 ### visualizar swagger

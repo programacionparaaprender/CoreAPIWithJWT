@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ToastrService } from 'ngx-toastr';
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { Observable } from 'rxjs';
 import { TarjetaCredito } from '../../../models/tarjetacredito';
@@ -18,7 +17,7 @@ export class TarjetaCreditoComponent implements OnInit {
   accion = "Agregar";
   data = "Datos del hijo";
   id: number | undefined;
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private _tarjetaService: TarjetaService) {
+  constructor(private fb: FormBuilder, private _tarjetaService: TarjetaService) {
 
     this.form = this.fb.group({
       tarjetaId: [''], 
@@ -61,11 +60,11 @@ export class TarjetaCreditoComponent implements OnInit {
       this._tarjetaService.saveTarjeta(tarjeta).subscribe(data => {
       //console.log(data);
       this.obtenerTarjetas();
-      this.toastr.success('Hello world!', 'Tarjeta registrada!');
+      //this.toastr.success('Hello world!', 'Tarjeta registrada!');
       this.form.reset();
     }, error => {
       //console.log(error);
-      this.toastr.error('Tarjeta no fue registrada con exito!', error);
+      //this.toastr.error('Tarjeta no fue registrada con exito!', error);
     }); 
     }else{
       //console.log("Actualizar tarjeta");
@@ -73,13 +72,13 @@ export class TarjetaCreditoComponent implements OnInit {
       this._tarjetaService.updateTarjeta(tarjeta, this.id).subscribe(data => {
         //console.log(data);
         this.obtenerTarjetas();
-        this.toastr.success('Hello world!', 'Tarjeta actualizada!');
+        //this.toastr.success('Hello world!', 'Tarjeta actualizada!');
         this.form.reset();
         this.id = 0;
         this.accion = "Agregar";
       }, error => {
         //console.log(error);
-        this.toastr.error('Tarjeta no fue actualizada con exito!', error);
+        //this.toastr.error('Tarjeta no fue actualizada con exito!', error);
       }); 
     }
   }
@@ -92,10 +91,10 @@ export class TarjetaCreditoComponent implements OnInit {
       this._tarjetaService.deleteTarjeta(id).subscribe(data => {
         //console.log(data);
         this.obtenerTarjetas();
-        this.toastr.success('Tarjeta eliminada con exito!', 'Tarjeta eliminada!');
+        //this.toastr.success('Tarjeta eliminada con exito!', 'Tarjeta eliminada!');
       }, error => {
         //console.log(error);
-        this.toastr.error('Tarjeta no fue eliminada con exito!', error);
+        //this.toastr.error('Tarjeta no fue eliminada con exito!', error);
       });
     }
   }

@@ -9,25 +9,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Models.Models
 {
+
     public class Usuario
     {
         [Key]
-        public int UsuarioId { get; set; }
+        public int id { get; set; }
 
         [StringLength(32)]
         [Required]
-        public string Email { get; set; }
+        public string nombre { get; set; }
 
         [StringLength(32)]
         [Required]
-        public string Password { get; set; }
+        public string email { get; set; }
+
+        [StringLength(32)]
+        [Required]
+        public string password { get; set; }
+
 
         public class Mapeo
         {
             public Mapeo(EntityTypeBuilder<Usuario> mapeoAutor)
             {
-                mapeoAutor.HasKey(x => x.UsuarioId);
-                mapeoAutor.Property(x => x.Email).HasColumnName("Email");
+                mapeoAutor.HasKey(x => x.id);
+                mapeoAutor.Property(x => x.email).HasColumnName("email");
                 mapeoAutor.ToTable("Usuario");
                 //mapeoAutor.HasOne(x => x.Autor);
             }

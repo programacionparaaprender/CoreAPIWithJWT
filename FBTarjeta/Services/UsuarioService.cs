@@ -18,22 +18,22 @@ namespace FBTarjeta.Services
         }
 
 
-        public TarjetaCredito agregarTarjeta(TarjetaCredito _tarjeta)
+        public Usuario agregarUsuario(Usuario _usuario)
         {
             int resultado = 0;
             try
             {
-                _applicationBDContext.TarjetaCreditos.Add(_tarjeta);
+                _applicationBDContext.Usuarios.Add(_usuario);
                 resultado = _applicationBDContext.SaveChanges();
                 if (resultado == 1)
                 {
-                    int lastId = _applicationBDContext.TarjetaCreditos.Max(x => x.Id);
-                    _tarjeta.Id = lastId;
-                    return _tarjeta;
+                    int lastId = _applicationBDContext.Usuarios.Max(x => x.Id);
+                    _usuario.id = lastId;
+                    return _usuario;
                 }
                 else
                 {
-                    return new TarjetaCredito();
+                    return new Usuario();
                 }
             }
             catch (Exception ex)
@@ -42,28 +42,31 @@ namespace FBTarjeta.Services
             }
         }
 
-        public List<TarjetaCredito> ObtenerTarjetas()
+        public List<Usuario> ObtenerUsuarios()
         {
 
-            var resultado = _applicationBDContext.TarjetaCreditos.ToList();
+            var resultado = _applicationBDContext.Usuarios.ToList();
             return resultado;
         }
 
-        public Boolean editarTarjetaCredito(int id, TarjetaCredito n)
+        public Boolean editarUsuario(int id, Usuario usuario)
         {
             int resultado = 0;
             try
             {
-                var r = _applicationBDContext.TarjetaCreditos.Where(x => x.Id == id).FirstOrDefault();
-                r.Titular = n.Titular;
-                r.NumeroTarjeta = n.NumeroTarjeta;
-                r.fechaExpiracion = n.fechaExpiracion;
-                r.CVV = n.CVV;
-                resultado = _applicationBDContext.SaveChanges();
-                if (resultado == 1)
-                    return true;
-                else
-                    return false;
+                var update = _applicationBDContext.Usuarios.Where(x => x.id == id).FirstOrDefault();
+                if(update != null)
+                {
+                    update.nombre = usuario.nombre;
+                    update.email = usuario.email;
+                    update.password = usuario.password;
+                    resultado = _applicationBDContext.SaveChanges();
+                    if (resultado == 1)
+                        return true;
+                    else
+                        return false;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -72,14 +75,14 @@ namespace FBTarjeta.Services
         }
 
 
-        public Usuario findEmailAndPassword(Usuario usuario)
+        public List<Usuario> findEmailAndPassword(Usuario usuario)
         {
             try
             {
                 IQueryable<Usuario> query;
-                query = _applicationBDContext.Usuarios.Where(x => x.Email == usuario.Email);
-                query = query.Where(x => x.Password == usuario.Password);
-                Usuario r = query.ToList().FirstOrDefault();
+                query = _applicationBDContext.Usuarios.Where(x => x.email == usuario.email);
+                query = query.Where(x => x.password == usuario.password);
+                List<Usuario> r = query.ToList();
                 return r;
             }
             catch (Exception ex)
@@ -92,7 +95,7 @@ namespace FBTarjeta.Services
         {
             try
             {
-                IQueryable<Usuario> query = _applicationBDContext.Usuarios.Where(x => x.UsuarioId == UsuarioId);
+                IQueryable<Usuario> query = _applicationBDContext.Usuarios.Where(x => x.id == UsuarioId);
                 Usuario r = query.ToList().FirstOrDefault();
                 return r;
             }
@@ -102,13 +105,13 @@ namespace FBTarjeta.Services
             }
         }
 
-        public Boolean eliminarTarjeta(int TarjetaId)
+        public Boolean eliminarUsuario(int id)
         {
             int resultado = 0;
             try
             {
-                TarjetaCredito Tarjeta = _applicationBDContext.TarjetaCreditos.Where<TarjetaCredito>(x => x.Id == TarjetaId).FirstOrDefault();
-                _applicationBDContext.Remove(Tarjeta);
+                Usuario usuario = _applicationBDContext.Usuarios.Where<Usuario>(x => x.id == id).FirstOrDefault();
+                _applicationBDContext.Remove(usuario);
                 resultado = _applicationBDContext.SaveChanges();
                 if (resultado == 1)
                     return true;

@@ -59,16 +59,20 @@ namespace FBTarjeta.Services
             int resultado = 0;
             try
             {
-                var r = _applicationBDContext.TarjetaCreditos.Where(x => x.Id == id).FirstOrDefault();
-                r.Titular = n.Titular;
-                r.NumeroTarjeta = n.NumeroTarjeta;
-                r.fechaExpiracion = n.fechaExpiracion;
-                r.CVV = n.CVV;
-                resultado = _applicationBDContext.SaveChanges();
-                if (resultado == 1)
-                    return true;
-                else
-                    return false;
+                TarjetaCredito update = _applicationBDContext.TarjetaCreditos.Where(x => x.Id == id).FirstOrDefault();
+                if(update != null)
+                {
+                    update.Titular = n.Titular;
+                    update.NumeroTarjeta = n.NumeroTarjeta;
+                    update.fechaExpiracion = n.fechaExpiracion;
+                    update.CVV = n.CVV;
+                    resultado = _applicationBDContext.SaveChanges();
+                    if (resultado == 1)
+                        return true;
+                    else
+                        return false;
+                }
+                return false;
             }
             catch (Exception ex)
             {

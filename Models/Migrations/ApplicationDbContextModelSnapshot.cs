@@ -115,23 +115,28 @@ namespace Models.Migrations
 
             modelBuilder.Entity("Models.Models.Usuario", b =>
                 {
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
+                    b.Property<string>("email")
                         .IsRequired()
-                        .HasColumnName("Email")
+                        .HasColumnName("email")
                         .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.Property<string>("Password")
+                    b.Property<string>("nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.HasKey("UsuarioId");
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("id");
 
                     b.ToTable("Usuario");
                 });

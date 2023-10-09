@@ -1,42 +1,38 @@
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { CommonModule } from '@angular/common';
-
-
-import { HttpClientModule } from '@angular/common/http';
-
-
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
 
-import { ToastrModule } from 'ngx-toastr';
-
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/app/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenuComponent } from 'src/app/views/menu/menu.component';
+import { LoginUsuariosComponent } from 'src/app/views/tio/login-usuarios/login-usuarios.component';
+import { RegistrarUsuariosComponent } from 'src/app/views/tio/registrar-usuarios/registrar-usuarios.component';
+import { TokenizedInterceptorProviders } from "src/app/commons/services/tokenized.interceptor.service";
 import { TarjetaCreditoComponent } from './components/components/tarjeta-credito/tarjeta-credito.component';
-
-import { HijoEjemploComponent } from './components/hijo-ejemplo/hijo-ejemplo.component';
-import { authTokens } from "./interceptors/auth-token";
-
 @NgModule({
   declarations: [
-    AppComponent,
     TarjetaCreditoComponent,
-    HijoEjemploComponent
+    AppComponent,
+    MenuComponent,
+    LoginUsuariosComponent,
+    RegistrarUsuariosComponent
   ],
   imports: [
-    CommonModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-    HttpClientModule,
-
-    BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
-    authTokens,
+    TokenizedInterceptorProviders,
   ],
   bootstrap: [AppComponent]
 })

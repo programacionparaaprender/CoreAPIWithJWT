@@ -35,37 +35,6 @@ namespace FBTarjeta.Controllers
             this._tarjetaCreditoService = noticiaService;
         }
 
-        [HttpPost]
-        [Route("login")]
-        [ProducesResponseType(typeof(Usuario), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Login([FromBody] Usuario creds)
-        {
-            if (!ValidateLogin(creds))
-            {
-                return Json(new
-                {
-                    error = "Login failed"
-                });
-            }
-
-            //var principal = GetPrincipal(creds, Startup.CookieAuthScheme);
-
-            //await HttpContext.SignInAsync(Startup.CookieAuthScheme, principal);
-            string datos = "";
-
-            datos = "{" + "\"name\":\"" + creds.Email
-                + "\"" + "," + "\"email\":\"" + "admin"
-                + "\"" + "," + "\"role\":\"" + "User" + "\"" + "}";
-            return StatusCode(200, datos);
-            //return Json(new
-            //{
-            //    name = principal.Identity.Name,
-            //    email = principal.FindFirstValue(ClaimTypes.Email),
-            //    role = principal.FindFirstValue(ClaimTypes.Role)
-            //});
-        }
-
         [HttpPost("logout")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -103,20 +72,21 @@ namespace FBTarjeta.Controllers
             SigningCredentials SigningCreds = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
             JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
 
-
-            if (!ValidateLogin(creds))
+            List<Usuario> listaUsuarios = ValidateLogin(creds);
+            if (listaUsuarios.Count == 0)
             {
                 return Json(new
                 {
                     error = "Login failed"
                 });
             }
+            Usuario usuario = listaUsuarios.First();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Email, creds.Email)
+                    new Claim(ClaimTypes.Email, creds.email)
                 }),
                 Expires = DateTime.UtcNow.AddDays(30),
                 //Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
@@ -129,27 +99,24 @@ namespace FBTarjeta.Controllers
             {
                 //token = token, 
                 token = _tokenHandler.WriteToken(token),
-                name = creds.Email,
-                email = creds.Email,
+                id = usuario.id,
+                nombre = usuario.nombre,
+                email = usuario.email,
                 role = "User"
             });
         }
 
-        private bool ValidateLogin(Usuario creds)
+        private List<Usuario> ValidateLogin(Usuario creds)
         {
-            Usuario resultado = new Usuario();
+            List<Usuario> lista = new List<Usuario>();
             try
             {
-                resultado = _tarjetaCreditoService.findEmailAndPassword(creds);
-                if (resultado != null)
-                {
-                    return true;
-                }
-                return false;
+                lista = _tarjetaCreditoService.findEmailAndPassword(creds);
+                return lista;
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
 
