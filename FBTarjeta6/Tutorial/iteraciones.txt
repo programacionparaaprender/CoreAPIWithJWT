@@ -149,4 +149,7 @@ https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/tutorials/first-m
 
 
 ### autentication
-https://jasonwatmore.com/post/2021/12/14/net-6-jwt-authentication-tutorial-with-example-api
+>- https://jasonwatmore.com/post/2021/12/14/net-6-jwt-authentication-tutorial-with-example-api
+
+### Migrar core 5 a 6
+>- https://learn.microsoft.com/en-us/aspnet/core/migration/50-to-60-samples?view=aspnetcore-7.0

@@ -85,6 +85,7 @@ namespace FBTarjeta.Services
             }
         }
         
+        /*
         public bool ProcedimientoQueNoDevuelveDatos(int Edad, string Nombre)
         {
             int resultado = 0;
@@ -102,7 +103,7 @@ namespace FBTarjeta.Services
             }
 
         }
-
+        */
 
         public List<spMostrarNoticiasConAutor_Result> ObtenerNoticiasPorAutor(int idautor)
         {

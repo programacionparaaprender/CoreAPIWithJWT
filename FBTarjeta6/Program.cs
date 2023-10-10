@@ -6,6 +6,8 @@ using Models.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FBTarjeta6.Middleware;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,10 +45,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-//builder.Services.AddTokenAuthentication(builder.Configuration);
+builder.Services.AddTokenAuthentication(builder.Configuration);
+
 
 
 var app = builder.Build();
+
 
 app.UseSwagger(c =>
 {
@@ -73,10 +77,29 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html");
+//app.MapFallbackToFile("index.html");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+});
+
+app.UseSpa(spa =>
+{
+    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+    spa.Options.SourcePath = "ClientApp";
+
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseAngularCliServer(npmScript: "start");
+    }
+});
 
 app.Run();
