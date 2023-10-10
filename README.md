@@ -1,5 +1,8 @@
-FBTarjetas
+### FBTarjetas 3.1
 dotnet new angular -o FBTarjeta -f netcoreapp3.1
+
+### FBTarjetas 6.0
+dotnet new angular -o FBTarjeta6 -f net6.0
 
 dotnet new sln
 dotnet sln add .\FBTarjeta\FBTarjeta.csproj
