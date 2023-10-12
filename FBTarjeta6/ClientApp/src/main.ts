@@ -1,20 +1,32 @@
-import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
 
-export function getBaseUrl() {
-  return document.getElementsByTagName('base')[0].href;
-}
 
-const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
-];
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+  
 
-if (environment.production) {
-  enableProdMode();
-}
+  // main.ts persisted
+  /*
+  import {
+    getAllDataFromLocalForage,
+    default as localForage,
+  } from 'ngrx-store-persist';
+   
+  getAllDataFromLocalForage({
+    driver: localForage.INDEXEDDB,
+    keys: [
+      'user',
+      'posts',
+      'tasks',
+      'users',
+      'login'
+    ],
+  }).then(() => {
+    platformBrowserDynamic()
+      .bootstrapModule(AppModule)
+      .catch(err => console.log(err));
+  });
 
-platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  */

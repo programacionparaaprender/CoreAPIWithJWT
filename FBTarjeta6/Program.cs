@@ -1,6 +1,5 @@
 using FBTarjeta.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Models.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;

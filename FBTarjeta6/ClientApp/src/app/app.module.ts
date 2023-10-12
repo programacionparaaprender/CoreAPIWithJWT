@@ -1,34 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/app/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenuComponent } from 'src/app/views/menu/menu.component';
+import { LoginUsuariosComponent } from 'src/app/views/tio/login-usuarios/login-usuarios.component';
+import { RegistrarUsuariosComponent } from 'src/app/views/tio/registrar-usuarios/registrar-usuarios.component';
+import { TokenizedInterceptorProviders } from "src/app/commons/services/tokenized.interceptor.service";
+import { TarjetaCreditoComponent } from './components/components/tarjeta-credito/tarjeta-credito.component';
+import { ListaUsuariosComponent } from './views/users/listar-usuarios/lista-usuarios.component';
+import { TodoUsuariosComponent } from './views/users/todo-usuarios/todo-usuarios.component';
 @NgModule({
   declarations: [
+    TarjetaCreditoComponent,
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    MenuComponent,
+    LoginUsuariosComponent,
+    RegistrarUsuariosComponent,
+    ListaUsuariosComponent,
+    TodoUsuariosComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ReactiveFormsModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    TokenizedInterceptorProviders,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

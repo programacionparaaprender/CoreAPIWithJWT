@@ -10,6 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
+      require('karma-junit-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -24,21 +25,49 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
+    junitReporter: {
+      outputDir: './coverage',
+      outputFile: 'sonar-reporter.xml',
+      useBrowserName: false,
+      xmlVersion: '1',
+    },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/angularapp'),
+      dir: require('path').join(__dirname, './coverage'),
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
-      ]
+        { type: 'text-summary' },
+        { type: 'lcovonly'},
+        { type: "cobertura"}
+      ],
+      check: {
+        emitWarning: true,
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'junit'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadlessCustom'],
+    customLaunchers: {
+			ChromeHeadlessCustom: {
+				base: 'ChromeHeadless',
+				flags: ['--no-sandbox', '--disable-dev-shm-usage']
+			}
+		},
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    failOnEmptyTestSuite: false,
+		captureTimeout: 210000,
+		browserDisconnectTolerance: 3,
+		browserDisconnectTimeout: 210000,
+		browserNoActivityTimeout: 210000
   });
 };
