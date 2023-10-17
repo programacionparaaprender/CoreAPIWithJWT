@@ -17,6 +17,9 @@ import { TokenizedInterceptorProviders } from "src/app/commons/services/tokenize
 import { TarjetaCreditoComponent } from './components/components/tarjeta-credito/tarjeta-credito.component';
 import { ListaUsuariosComponent } from './views/users/listar-usuarios/lista-usuarios.component';
 import { TodoUsuariosComponent } from './views/users/todo-usuarios/todo-usuarios.component';
+import { SlideComponent } from './views/slide/slide.component';
+import { SidebarDirective } from './directivas/sidebar.directive';
+
 @NgModule({
   declarations: [
     TarjetaCreditoComponent,
@@ -25,7 +28,9 @@ import { TodoUsuariosComponent } from './views/users/todo-usuarios/todo-usuarios
     LoginUsuariosComponent,
     RegistrarUsuariosComponent,
     ListaUsuariosComponent,
-    TodoUsuariosComponent
+    TodoUsuariosComponent,
+    SlideComponent,
+    SidebarDirective
   ],
   imports: [
     FormsModule,

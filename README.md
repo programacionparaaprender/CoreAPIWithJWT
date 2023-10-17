@@ -7,12 +7,15 @@ dotnet new angular -o FBTarjeta6 -f net6.0
 ### FBTarjetas66 6.0 para angular
 dotnet new angular -o FBTarjeta66 -f net6.0
 
+### WebApi
+dotnet new webapi -o FBTarjeta7 -f net7.0
+
 
 dotnet new sln
 dotnet sln add .\FBTarjeta\FBTarjeta.csproj
 dotnet sln add .\Common\Common.csproj
 dotnet sln add .\Models\Models.csproj
-
+dotnet sln add FBTarjeta7/FBTarjeta7.csproj
 
 ng add @angular/cdk @angular/http
 
@@ -132,4 +135,9 @@ https://www.connectionstrings.com/sqlconnection/
 ### Migrar core 5 a 6
 >- https://learn.microsoft.com/en-us/aspnet/core/migration/50-to-60-samples?view=aspnetcore-7.0
 
+
+### vue error
+>- https://stackoverflow.com/questions/70346829/eslint-vue-multiword-components
+>- https://stackoverflow.com/questions/70083042/eslint-parsing-error-unexpected-token
+>- npm i @typescript-eslint/eslint-plugin
 
