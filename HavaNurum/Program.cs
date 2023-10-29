@@ -22,7 +22,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         };
     });
 builder.Services.Configure<JwtAyarlari>(builder.Configuration.GetSection("Jwt"));
-
+builder.Services.AddScoped<ApiKullanicisi, ApiKullanicisi>();
+builder.Services.AddScoped<JwtAyarlari, JwtAyarlari>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

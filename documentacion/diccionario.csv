@@ -1,0 +1,4 @@
+Columna;Valor;Longitud;Descripción;
+AutorId;entero;;Clave primaria del autor de las noticias;
+Nombre;carácter;100;Nombre del autor de las noticias;
+Apellido;carácter;100;Apellido del autor de las noticias;

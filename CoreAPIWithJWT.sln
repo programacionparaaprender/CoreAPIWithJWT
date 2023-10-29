@@ -11,14 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F9646D2B-763D-4026-A028-21C894DF84BA}"
 	ProjectSection(SolutionItems) = preProject
+		documentacion\diccionario.csv = documentacion\diccionario.csv
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBTarjeta6", "FBTarjeta6\FBTarjeta6.csproj", "{998CC3E1-FF83-477C-AD7F-AA3ADCA0F9FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavaNurum", "HavaNurum\HavaNurum.csproj", "{A2D84D71-F7DB-4A56-914D-DDDD33F9CE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavaNurum", "HavaNurum\HavaNurum.csproj", "{A2D84D71-F7DB-4A56-914D-DDDD33F9CE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBTarjeta7", "FBTarjeta7\FBTarjeta7.csproj", "{325D80D0-A01C-427F-BE90-DC0B5680747D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBTarjeta7", "FBTarjeta7\FBTarjeta7.csproj", "{325D80D0-A01C-427F-BE90-DC0B5680747D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
