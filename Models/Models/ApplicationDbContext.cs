@@ -14,6 +14,8 @@ namespace Models.Models
         }
         //public DbSet<Nombres> Nombres { get; set; }
 
+        public DbSet<Menu> Menus { get; set; }
+
         public DbSet<Usuario> Usuarios { get; set; }
 
         public DbSet<Autor> Autores { get; set; }

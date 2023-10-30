@@ -9,8 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Models.Models
 {
-
-    public class Usuario
+    public class Menu
     {
         [Key]
         public int id { get; set; }
@@ -21,21 +20,18 @@ namespace Models.Models
 
         [StringLength(32)]
         [Required]
-        public string email { get; set; }
+        public string url { get; set; }
 
-        [StringLength(32)]
         [Required]
-        public string password { get; set; }
-
+        public int hijo { get; set; }
 
         public class Mapeo
         {
-            public Mapeo(EntityTypeBuilder<Usuario> mapeoUsuario)
+            public Mapeo(EntityTypeBuilder<Menu> mapeoMenu)
             {
-                mapeoUsuario.HasKey(x => x.id);
-                mapeoUsuario.Property(x => x.email).HasColumnName("email");
-                mapeoUsuario.ToTable("Usuario");
-                //mapeoAutor.HasOne(x => x.Autor);
+                mapeoMenu.HasKey(x => x.id);
+                mapeoMenu.Property(x => x.nombre).HasColumnName("nombre");
+                mapeoMenu.ToTable("Menu");
             }
         }
     }

@@ -75,6 +75,18 @@ select NombreID, Nombre from Nombres where edad = @edad
 and  Nombre like '%' +@nombre+'%';
 end
 
+go
+
+insert into 
+dbo.Menus(nombre,[url],hijo)
+values
+('Usuarios','/usuarios',0);
+insert into 
+dbo.Menus(nombre,[url],hijo)
+values
+('Tarjetas','/tarjeta',0);
+
+go
 
 https://codepen.io/arsinak/pen/eFDGw/
 
@@ -84,6 +96,7 @@ Install-Package Microsoft.EntityFrameworkCore.Tools -Version 3.1.6
 
 PM> add-migration v.6.0.0
 PM> add-migration v.7.0.0
+PM> add-migration v.8.0.0
 
 PM> update-database
 

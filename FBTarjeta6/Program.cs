@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FBTarjeta6.Middleware;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +15,7 @@ builder.Services.AddTransient<NoticiaService, NoticiaService>();
 builder.Services.AddTransient<AutorService, AutorService>();
 builder.Services.AddTransient<TarjetaCreditoService, TarjetaCreditoService>();
 builder.Services.AddTransient<UsuarioService, UsuarioService>();
+builder.Services.AddTransient<MenuService, MenuService>();
 builder.Services.AddControllers();
 builder.Services.AddCors(options => {
     options.AddPolicy("PermitirTodo",
