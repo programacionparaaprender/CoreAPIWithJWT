@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TioService } from '../../tio/tio.service';
 import { Tio } from 'src/app/commons/models/tio';
-import { TokenService } from '../../accederwebtoken/token.service';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-lista-usuarios',

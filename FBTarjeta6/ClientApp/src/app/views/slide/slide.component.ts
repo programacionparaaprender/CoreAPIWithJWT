@@ -8,7 +8,7 @@ import { Tio } from 'src/app/commons/models/tio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUsuariosComponent } from 'src/app/views/tio/login-usuarios/login-usuarios.component';
 import { Location } from "@angular/common";
-import { TokenService } from 'src/app/views/accederwebtoken/token.service';
+import { TokenService } from 'src/app/services/token.service';
 import { Usertoken } from 'src/app/models/usertoken';
 
 

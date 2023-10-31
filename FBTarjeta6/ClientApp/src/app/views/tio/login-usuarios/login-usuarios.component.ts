@@ -8,7 +8,7 @@ import * as TaskActions from 'src/app/commons/store/login.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { TokenService } from 'src/app/views/accederwebtoken/token.service';
+import { TokenService } from 'src/app/services/token.service';
 import { Usertoken } from 'src/app/models/usertoken';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Responseusertoken } from 'src/app/models/responseusertoken';

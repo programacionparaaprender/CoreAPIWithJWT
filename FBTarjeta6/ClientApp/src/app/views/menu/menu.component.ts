@@ -8,8 +8,10 @@ import { Tio } from 'src/app/commons/models/tio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUsuariosComponent } from 'src/app/views/tio/login-usuarios/login-usuarios.component';
 import { Location } from "@angular/common";
-import { TokenService } from 'src/app/views/accederwebtoken/token.service';
+import { TokenService } from 'src/app/services/token.service';
 import { Usertoken } from 'src/app/models/usertoken';
+import { MenuService } from 'src/app/services/menu.service';
+import { ResponseMenu } from 'src/app/models/responsemenu';
 
 
 @Component({
@@ -19,9 +21,9 @@ import { Usertoken } from 'src/app/models/usertoken';
 })
 
 
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   //@ViewChild(LoginUsuariosComponent) child;
-
+  menus:ResponseMenu[] = [];
   tio: Tio;
   nombre = '';
   email = 'zddfdfdsfd';
@@ -31,6 +33,7 @@ export class MenuComponent {
     location: Location, 
     private router: Router, 
     //private store: Store<AppState>,
+    private menuService: MenuService,
     private tokenService: TokenService) {
       this.tio = new Tio("", "", "");
       //this.login = this.store.select('login');
@@ -49,6 +52,18 @@ export class MenuComponent {
         }
       }
     }
+  }
+
+  async ngOnInit() {
+    const response = await this.menuService.lista(); 
+    if(response){
+      this.menus = response.data;
+      console.log('menus');
+      console.log(JSON.stringify(this.menus));
+    }else {
+      console.log('no esta autorizado');
+    }
+     
   }
   /* ngAfterViewInit() {
     this.usuariologeado = this.child.usuariologeado

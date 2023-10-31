@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 //import { LoginService } from '../services/login.service';
-import { TokenService } from 'src/app/views/accederwebtoken/token.service';
+import { TokenService } from 'src/app/services/token.service';
 const Authorization = 'Authorization';       
 
 

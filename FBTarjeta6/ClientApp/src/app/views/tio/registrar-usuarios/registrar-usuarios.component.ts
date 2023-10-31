@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Usertoken } from 'src/app/models/usertoken';
-import { TokenService } from '../../accederwebtoken/token.service';
+import { TokenService } from '../../../services/token.service';
 
 
 @Component({

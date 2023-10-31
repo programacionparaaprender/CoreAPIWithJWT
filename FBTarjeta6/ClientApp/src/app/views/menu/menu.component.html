@@ -10,10 +10,25 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngFor="let menu of menus; index as i">
+          <!--          
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Inicio</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/tarjeta'">tarjeta</a>
+          </li>
+        -->
+          <li class="nav-item" *ngIf="i == 0">
+            <a class="nav-link active" [routerLink]="menu.url" aria-current="page">{{menu.nombre}}</a>
+          </li>
+          <li class="nav-item" *ngIf="i != 0">
+            <a class="nav-link" [routerLink]="menu.url">{{menu.nombre}}</a>
+          </li>
+          
           <!--
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
@@ -32,13 +47,7 @@
             </ul>
           </div>
         -->
- 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/usuarios">Usuarios</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/tarjeta'">tarjeta</a>
-        </li>
+        
         </ul>
         <!--
         <form class="d-flex fst-italic">

@@ -80,6 +80,10 @@ go
 insert into 
 dbo.Menus(nombre,[url],hijo)
 values
+('Inicio','/',0);
+insert into 
+dbo.Menus(nombre,[url],hijo)
+values
 ('Usuarios','/usuarios',0);
 insert into 
 dbo.Menus(nombre,[url],hijo)

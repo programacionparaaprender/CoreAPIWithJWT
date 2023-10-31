@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { Observable } from 'rxjs';
-import { TarjetaCredito } from '../../../models/tarjetacredito';
+import { TarjetaCredito } from '../../models/tarjetacredito';
 import { Responsetarjeta } from 'src/app/models/responsetarjeta';
 
 
