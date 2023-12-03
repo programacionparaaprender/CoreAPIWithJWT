@@ -7,8 +7,8 @@ dotnet new angular -o FBTarjeta6 -f net6.0
 ### FBTarjetas66 6.0 para angular
 dotnet new angular -o FBTarjeta66 -f net6.0
 
-### WebApi
-dotnet new webapi -o FBTarjeta7 -f net7.0
+### FBTarjetas7 7.0 para angular
+dotnet new angular -o FBTarjeta7 -f net7.0
 
 
 dotnet new sln

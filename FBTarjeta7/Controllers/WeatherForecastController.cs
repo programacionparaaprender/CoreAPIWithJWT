@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
-namespace FBTarjeta7.Controllers;
+namespace FBTarjeta6.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -18,15 +19,22 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            Date = convertidor(index),
             TemperatureC = Random.Shared.Next(-20, 55),
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+
+    public System.DateOnly convertidor(int index)
+    {
+        DateTime days = DateTime.Now.AddDays(index);
+        System.DateOnly Date = DateOnly.FromDateTime(days);
+        return Date;
     }
 }

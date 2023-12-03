@@ -47,7 +47,7 @@ namespace FBTarjeta.Controllers
 
         // GET: api/<UsuarioController>
         [HttpGet]
-        [ProducesResponseType(typeof(TarjetaCredito), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Usuario), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Get()
         {

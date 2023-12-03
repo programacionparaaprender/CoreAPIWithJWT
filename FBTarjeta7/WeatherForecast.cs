@@ -1,4 +1,4 @@
-namespace FBTarjeta7;
+namespace FBTarjeta6;
 
 public class WeatherForecast
 {
