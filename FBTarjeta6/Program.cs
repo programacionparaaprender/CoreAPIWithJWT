@@ -10,7 +10,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddTransient<NoticiaService, NoticiaService>();
 builder.Services.AddTransient<AutorService, AutorService>();
 builder.Services.AddTransient<TarjetaCreditoService, TarjetaCreditoService>();
