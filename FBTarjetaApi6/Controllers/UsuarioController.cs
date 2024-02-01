@@ -1,4 +1,4 @@
-﻿using FBTarjeta.Services;
+﻿using FBTarjetaApi6.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FBTarjeta.Controllers
+namespace FBTarjetaApi6.Controllers
 {
     [ApiVersion("2.0")]
     [Route("api/[controller]")]

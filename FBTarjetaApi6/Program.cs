@@ -1,15 +1,14 @@
-using FBTarjeta.Services;
+using FBTarjetaApi6.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Models.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using FBTarjeta6.Middleware;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-var builder = WebApplication.CreateBuilder(args);
+using FBTarjetaApi6.Middleware;
 
-// Add services to the container.
+
+var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -22,15 +21,16 @@ builder.Services.AddTransient<TarjetaCreditoService, TarjetaCreditoService>();
 builder.Services.AddTransient<UsuarioService, UsuarioService>();
 builder.Services.AddTransient<MenuService, MenuService>();
 builder.Services.AddControllers();
+
+string MyAllowSpecificOrigins = "PermitirTodo";
+
 builder.Services.AddCors(options => {
-    options.AddPolicy("PermitirTodo",
+    options.AddPolicy(MyAllowSpecificOrigins,
     acceso => acceso.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+    //options.AddPolicy(name: "angular",
+    //policy  => { policy.WithOrigins("http:localhost:4200", "http://www.contoso.com"); });
 });
 builder.Services.AddControllersWithViews();
-builder.Services.AddSpaStaticFiles(configuration =>
-{
-    configuration.RootPath = "ClientApp/dist";
-});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -55,10 +55,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddTokenAuthentication(builder.Configuration);
 
-
-
 var app = builder.Build();
-
 
 app.UseSwagger(c =>
 {
@@ -84,7 +81,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors(MyAllowSpecificOrigins);
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller}/{action=Index}/{id?}");
@@ -97,17 +94,5 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller}/{action=Index}/{id?}");
 });
 
-app.UseSpa(spa =>
-{
-    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-    // see https://go.microsoft.com/fwlink/?linkid=864501
-
-    spa.Options.SourcePath = "ClientApp";
-
-    if (app.Environment.IsDevelopment())
-    {
-        spa.UseAngularCliServer(npmScript: "start");
-    }
-});
 
 app.Run();
