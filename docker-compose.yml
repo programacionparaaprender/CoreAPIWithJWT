@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  fbtarjeta6:
+    image: ${DOCKER_REGISTRY-}fbtarjeta6
+    build:
+      context: .
+      dockerfile: FBTarjeta6\Dockerfile
